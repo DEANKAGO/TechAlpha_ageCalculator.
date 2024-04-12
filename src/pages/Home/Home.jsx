@@ -9,8 +9,8 @@ export const Home = () => {
   return (
     <div>
       <Navbar />
-      <Results />
       <Search />
+      <Results />
       <Footer />
     </div>
   )
