@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./search.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export const Search = () => {
+  const [dateValue, onDateChange] = useState(new Date());
   return (
     <div className="w3-container w3-light-grey description">
       <Container className="mt-5 mb-5">
@@ -22,12 +23,12 @@ export const Search = () => {
               <label class="w3-text-white">
                 <b>Date of Birth</b>
               </label>
-              <input class="w3-input w3-border w3-round-xxlarge" type="text" />
+              <input class="w3-input w3-border w3-round-xxlarge" type="date" />
 
               <label class="w3-text-white">
                 <b>Current Date</b>
               </label>
-              <input class="w3-input w3-border w3-round-xxlarge" type="text" />
+              <input class="w3-input w3-border w3-round-xxlarge" type="date" />
 
               <button class="w3-btn w3-teal w3-round-xxlarge mt-3">
                 Calculate
