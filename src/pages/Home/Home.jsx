@@ -7,7 +7,7 @@ import { Footer } from'../../components/Footer/Footer';
 
 export const Home = () => {
   return (
-    <div>
+    <div className='home'>
       <Navbar />
       <Search />
       <Results />

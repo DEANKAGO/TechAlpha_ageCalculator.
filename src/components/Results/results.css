@@ -1,0 +1,25 @@
+.results {
+    width: 90%;
+    margin-top: -50px;
+    align-items: center;
+    justify-content: center;
+}
+.column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.details {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    font-size: 30px;
+}
+.age {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

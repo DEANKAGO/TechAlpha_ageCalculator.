@@ -3,6 +3,10 @@ import './footer.css';
 
 export const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className="w3-container w3-light-grey w3-center navMain">
+      <div className="nav">
+        <h3 className="">Footer</h3>
+      </div>
+    </div>
   )
 }
