@@ -6,50 +6,45 @@ import Col from 'react-bootstrap/Col';
 import { Image } from 'react-bootstrap';
 import Welcome from '../../images/welcome.jpg';
 import Modal from 'react-modal';
+import { Results } from '../Results/Results';
 
 const Search = () => {
   const [dob, setDob] = useState('');
   const [age, setAge] = useState('');
-
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  // console.log("modalIsOpen===>". modalIsOpen);
+  const [months, setMonths] = useState('');
+  const [days, setDays] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const currentAge = () => {
     const today = new Date();
     const birthDate = new Date(dob);
     const age = today.getFullYear() - birthDate.getFullYear();
-    // debugger;
-    // const ageDate = new Date(age);
-    // const calculateCurrentAge = Math.abs(age.getUTCFullYear() - 1970)
+
+    let months = today.getMonth() - birthDate.getMonth();
+    if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+      months += 12;
+    }
+    console.log('months======>', months);
+
+    var days = today.getDate() - birthDate.getDate();
+    if (days < 0) {
+      const prevMonth = new Date(today.getFullYear(), today.getMonth - 1, 0);
+      days += prevMonth.getDate();
+      months--;
+    }
+    console.log('days======>', days);
 
     setAge(age);
-    // setModalIsOpen(true);
-
-    // const age = today.getFullYear - birthDate.getFullYear();
-    // const months = today.getMonth() - birthDate.getMonth();
-    // if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate()))
-    // {
-    //   age--
-    // }
-    // return age;
+    setMonths(months);
+    setDays(days);
+    setModalIsOpen(true);
   };
-
-  // function handleChange (e) {
-  //   this.setState({dob: e.target.value}, () => {
-  //     console.log(this.state.dob);
-  //   });
-  //   var newAge = {newAge: this.calculateAge(e.target.value)}
-  //   console.log(newAge);
-  //   this.setState({age1: newAge}, () => {
-  //     console.log('Age:', this.state.age1);
-  //   })
-  // }
 
   return (
     <div
       className='w3-container w3-light-grey description'
-      style={{ height: 700, width: '100%' }}
+      style={{ height: 1000, width: '100%' }}
     >
       <Container className='mt-5 mb-5'>
         <Row>
@@ -60,9 +55,9 @@ const Search = () => {
             <div className='w3-center'>
               <h2 className='w3-bold mb-3 fs-2'>Age Calculator</h2>
               <p className='mb-5'>
-                Are you curious about your current age or simply interested{' '}
+                Are you curious about your current age or simply interested
                 <br /> in knowing how many days, weeks, or months <br /> you've
-                been on this planet, our intuitive interface makes it <br />{' '}
+                been on this planet, our intuitive interface makes it <br />
                 easy to find out.
               </p>
             </div>
@@ -89,7 +84,19 @@ const Search = () => {
           </Col>
         </Row>
       </Container>
-      <Modal>{/* <Compoment /> */}</Modal>
+      <Modal
+        className='w3-container'
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        }}
+      >
+        <Results age={age} months={months} days={days} />
+        <button onClick={() => setModalIsOpen(false)}>Close</button>
+      </Modal>
     </div>
   );
 };
