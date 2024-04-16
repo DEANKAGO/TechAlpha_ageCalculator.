@@ -12,7 +12,7 @@ export const Results = (props) => {
       {/* <div className='w3-blue w3-card-4 m-5' > */}
       <h1 className='mt-5'>Your Age Is</h1>
       <div className='mt-5 age'>
-        <Row className='' style={{ width: '80%' }}>
+        <Row className='' style={{ width: '100%' }}>
           <Col className='column p-3'>
             <p className='details w3-blue w3-circle w3-card-4'>{props.age}</p>
             <p className='fs-2'>Years</p>

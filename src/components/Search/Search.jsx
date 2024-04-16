@@ -8,6 +8,21 @@ import Welcome from '../../images/welcome.jpg';
 import Modal from 'react-modal';
 import { Results } from '../Results/Results';
 
+const customStyles = {
+  overlay: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  content: {
+    position: 'static',
+    width: '900px',
+    maxHeight: '100%',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+  },
+};
+
 const Search = () => {
   const [dob, setDob] = useState('');
   const [age, setAge] = useState('');
@@ -28,11 +43,11 @@ const Search = () => {
     console.log('months======>', months);
 
     var days = today.getDate() - birthDate.getDate();
-    if (days < 0) {
-      const prevMonth = new Date(today.getFullYear(), today.getMonth - 1, 0);
-      days += prevMonth.getDate();
-      months--;
-    }
+    // if (days < 0) {
+    //   const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1, 0);
+    //   days += prevMonth.getDate();
+    //   months--;
+    // }
     console.log('days======>', days);
 
     setAge(age);
@@ -44,7 +59,7 @@ const Search = () => {
   return (
     <div
       className='w3-container w3-light-grey description'
-      style={{ height: 1000, width: '100%' }}
+      style={{ height: 700, width: '100%' }}
     >
       <Container className='mt-5 mb-5'>
         <Row>
@@ -83,20 +98,16 @@ const Search = () => {
             </div>
           </Col>
         </Row>
+        <Modal
+          className='w3-container'
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          style={customStyles}
+        >
+          <Results age={age} months={months} days={days} />
+          <button onClick={() => setModalIsOpen(false)}>Close</button>
+        </Modal>
       </Container>
-      <Modal
-        className='w3-container'
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          },
-        }}
-      >
-        <Results age={age} months={months} days={days} />
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
-      </Modal>
     </div>
   );
 };
