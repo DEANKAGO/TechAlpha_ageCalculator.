@@ -53,9 +53,7 @@ const Search = () => {
       days += daysInPrevMonth;
       months--;
     }
-    console.log('age======>', age);
-    console.log('months======>', months);
-    console.log('days======>', days);
+   
 
     setAge(age);
     setMonths(months);
