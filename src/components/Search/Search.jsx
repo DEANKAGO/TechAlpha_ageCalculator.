@@ -25,35 +25,49 @@ const customStyles = {
 
 const Search = () => {
   const [dob, setDob] = useState('');
-  const [age, setAge] = useState('');
-  const [months, setMonths] = useState('');
-  const [days, setDays] = useState('');
+  const [age, setAge] = useState(0);
+  const [months, setMonths] = useState(0);
+  const [days, setDays] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const currentAge = () => {
     const today = new Date();
     const birthDate = new Date(dob);
-    const age = today.getFullYear() - birthDate.getFullYear();
+    let age = today.getFullYear() - birthDate.getFullYear();
 
     let months = today.getMonth() - birthDate.getMonth();
     if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
       months += 12;
+      age--;
     }
-    console.log('months======>', months);
 
     var days = today.getDate() - birthDate.getDate();
-    // if (days < 0) {
-    //   const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1, 0);
-    //   days += prevMonth.getDate();
-    //   months--;
-    // }
+    if (days < 0) {
+      const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1);
+      const daysInPrevMonth = new Date(
+        prevMonth.getFullYear(),
+        prevMonth.getMonth() + 1,
+        0
+      ).getDate();
+      const adjustedDays = days + daysInPrevMonth;
+      days += daysInPrevMonth;
+      months--;
+    }
+    console.log('age======>', age);
+    console.log('months======>', months);
     console.log('days======>', days);
 
     setAge(age);
     setMonths(months);
     setDays(days);
     setModalIsOpen(true);
+  };
+
+  const resetCalculator = () => {
+    setDob('');
+    setAge(0);
+    setMonths(0);
+    setDays(0);
   };
 
   return (
@@ -104,8 +118,17 @@ const Search = () => {
           onRequestClose={() => setModalIsOpen(false)}
           style={customStyles}
         >
-          <Results age={age} months={months} days={days} />
-          <button onClick={() => setModalIsOpen(false)}>Close</button>
+          <div>
+            <Results age={age} months={months} days={days} />
+            <button
+              onClick={() => {
+                setModalIsOpen(false);
+                resetCalculator();
+              }}
+            >
+              Close
+            </button>
+          </div>
         </Modal>
       </Container>
     </div>
