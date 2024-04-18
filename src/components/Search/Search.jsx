@@ -10,16 +10,20 @@ import { Results } from '../Results/Results';
 
 const customStyles = {
   overlay: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   content: {
-    position: 'static',
-    width: '900px',
-    maxHeight: '100%',
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1ss)',
+    backgroundColor: '#FFFFCC',
   },
 };
 
@@ -53,7 +57,6 @@ const Search = () => {
       days += daysInPrevMonth;
       months--;
     }
-   
 
     setAge(age);
     setMonths(months);
@@ -78,7 +81,7 @@ const Search = () => {
           <Col className='w3-container'>
             <Image src={Welcome} alt='welcome' rounded fluid />
           </Col>
-          <Col className='w3-container w3-blue w3-round p-5 w3-card-4'>
+          <Col className='w3-container w3-blue w3-round p-5 w3-card-4 col2'>
             <div className='w3-center'>
               <h2 className='w3-bold mb-3 fs-2'>Age Calculator</h2>
               <p className='mb-5'>
@@ -100,7 +103,7 @@ const Search = () => {
                 name='dateOfBirth'
               />
               <button
-                className='w3-btn w3-teal w3-round-xxlarge mt-3'
+                className='w3-btn w3-teal w3-round-xxlarge mt-3 zoom-in-on-hover'
                 onClick={() => {
                   currentAge();
                 }}
@@ -111,21 +114,18 @@ const Search = () => {
           </Col>
         </Row>
         <Modal
-          className='w3-container'
           isOpen={modalIsOpen}
           onRequestClose={() => setModalIsOpen(false)}
           style={customStyles}
         >
           <div>
-            <Results age={age} months={months} days={days} />
-            <button
-              onClick={() => {
-                setModalIsOpen(false);
-                resetCalculator();
-              }}
-            >
-              Close
-            </button>
+            <Results
+              age={age}
+              months={months}
+              days={days}
+              setModalIsOpen={setModalIsOpen}
+              resetCalculator={resetCalculator}
+            />
           </div>
         </Modal>
       </Container>
